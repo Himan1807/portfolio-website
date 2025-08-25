@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Himanshu Singh — Portfolio</title>
+  <meta name="description" content="Himanshu Singh — B.Tech CSE student and web developer. Projects in JS, web apps, and systems (OShell)."/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0d10;
+      --panel:#12161b;
+      --muted:#9aa4af;
+      --text:#e7edf3;
+      --accent:#2dd4bf; /* teal accent; change here */
+      --accent-2:#14b8a6;
+      --ring: 0 0 0 3px color-mix(in oklab, var(--accent) 30%, transparent);
+      --radius: 16px;
+      --shadow: 0 8px 32px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,'Noto Sans','Apple Color Emoji','Segoe UI Emoji';background:var(--bg);color:var(--text);line-height:1.6}
+    a{color:var(--text);text-decoration:none}
+    img{max-width:100%;display:block}
+
+    /* Layout */
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    header{position:sticky;top:0;z-index:50;background:linear-gradient(to bottom, rgba(11,13,16,.9), rgba(11,13,16,.7), transparent)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+    .brand{display:flex;gap:10px;align-items:center}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:var(--shadow)}
+    .brand h1{font-size:18px;margin:0;font-weight:800;letter-spacing:.3px}
+    .menu{display:flex;gap:16px}
+    .menu a{opacity:.85;padding:8px 12px;border-radius:10px}
+    .menu a:hover{background:rgba(255,255,255,.06);opacity:1}
+
+    /* Hero */
+    .hero{padding:96px 0 56px}
+    .hero-inner{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center}
+    .tag{display:inline-flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:6px 10px;border-radius:999px}
+    .dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px var(--accent)}
+    .hero h2{font-size:44px;line-height:1.15;margin:14px 0 12px}
+    .hero p{color:var(--muted);margin:0 0 24px}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:12px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);transition:.2s}
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.07)}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#061017;border:none}
+    .btn.primary:hover{filter:brightness(1.05)}
+
+    /* Sections */
+    section{padding:56px 0}
+    .section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:22px}
+    .section-head h3{margin:0;font-size:24px}
+    .muted{color:var(--muted)}
+
+    /* Cards */
+    .grid{display:grid;gap:16px}
+    .grid.projects{grid-template-columns:repeat(12,1fr)}
+    .project{grid-column:span 12;background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
+    .project h4{margin:0 0 6px;font-size:18px}
+    .project .stack{font-size:12px;color:var(--muted)}
+    .project .links{display:flex;gap:10px}
+    .project .links a{font-size:14px;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+    .project .links a:hover{background:rgba(255,255,255,.07)}
+
+    @media(min-width:820px){
+      .project{grid-template-columns:2.5fr 1fr}
+    }
+
+    /* Skills */
+    .chips{display:flex;flex-wrap:wrap;gap:10px}
+    .chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);font-size:13px}
+
+    /* Resume & Achievements */
+    .panel{background:var(--panel);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+
+    /* Contact */
+    form{display:grid;gap:12px}
+    input, textarea{background:#0f1318;border:1px solid rgba(255,255,255,.08);color:var(--text);padding:12px 14px;border-radius:12px;outline:none}
+    input:focus, textarea:focus{box-shadow:var(--ring);border-color:var(--accent)}
+    textarea{min-height:120px;resize:vertical}
+
+    footer{padding:40px 0 64px;color:var(--muted)}
+    .pill{display:inline-flex;align-items:center;gap:8px;background:rgba(45,212,191,.12);color:var(--accent);border:1px solid color-mix(in oklab, var(--accent) 40%, transparent);padding:6px 10px;border-radius:999px}
+
+    /* Utilities */
+    .hide{display:none}
+    .sr{position:absolute;left:-9999px}
+    .spacer{height:8px}
+    .fade{opacity:0;transform:translateY(8px);transition:opacity .5s ease, transform .5s ease}
+    .fade.show{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand"><div class="logo" aria-hidden="true"></div><h1>Himanshu Singh</h1></div>
+      <nav class="menu" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#achievements">Achievements</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <div>
+          <span class="tag"><span class="dot" aria-hidden="true"></span> Open to SDE Internships</span>
+          <h2>Building clean, fast web apps & tinkering with systems.</h2>
+          <p>I’m a third-year B.Tech CSE student at Shiv Nadar University with experience in web development and cybersecurity. I love solving real problems through code and have participated in multiple hackathons.</p>
+          <div class="cta">
+            <a class="btn primary" href="#projects">View Projects</a>
+            <a class="btn" href="resume.pdf" download>Download Resume</a>
+            <a class="btn" href="https://github.com/Himan1807" target="_blank" rel="noreferrer noopener">GitHub</a>
+          </div>
+        </div>
+        <div class="panel">
+          <h3 style="margin-top:0">Quick facts</h3>
+          <ul style="margin:8px 0 0 18px">
+            <li>Dean’s List (Spring 2024)</li>
+            <li>Summer Admission Coordinator (2024–2025)</li>
+            <li>Convocation Volunteer</li>
+          </ul>
+          <div class="spacer"></div>
+          <span class="pill">#web-development</span>
+          <span class="pill" style="margin-left:10px">#cybersecurity</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="container">
+        <div class="section-head">
+          <h3>About</h3>
+          <span class="muted">B.Tech CSE • SNU, Greater Noida</span>
+        </div>
+        <div class="panel fade">
+          <p>Hi, I’m Himanshu. I enjoy building minimal, responsive web apps with vanilla JS and clean CSS. I’ve also worked on systems programming, creating an optimized Unix shell (OShell) that speeds up mathematical batch operations significantly.
+          Outside of code, I play badminton, watch movies/shows, and read crime thriller & sci‑fi books.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <div class="container">
+        <div class="section-head">
+          <h3>Projects</h3>
+          <span class="muted">Selected work</span>
+        </div>
+        <div class="grid projects">
+          <article class="project fade">
+            <div>
+              <h4>Event Planner Web App</h4>
+              <div class="stack">HTML • CSS • JavaScript • localStorage • OpenWeather API • Notifications</div>
+              <p class="muted">Plan, search, and manage events with reminders and weather insights. Responsive UI with edit/delete/complete/share actions.</p>
+            </div>
+            <div class="links">
+              <a href="https://event-planner-y504.onrender.com" target="_blank" rel="noreferrer">Live</a>
+              <a href="https://github.com/Himan1807" target="_blank" rel="noreferrer">Repo</a>
+            </div>
+          </article>
+
+          <article class="project fade">
+            <div>
+              <h4>To‑Do List</h4>
+              <div class="stack">HTML • CSS • JavaScript • localStorage</div>
+              <p class="muted">Add, edit, delete with persistent storage and a polished, responsive interface.</p>
+            </div>
+            <div class="links">
+              <a href="https://himan1807.github.io/to-do-list-app/" target="_blank" rel="noreferrer">Live</a>
+              <a href="https://github.com/Himan1807/to-do-list-app" target="_blank" rel="noreferrer">Repo</a>
+            </div>
+          </article>
+
+          <article class="project fade">
+            <div>
+              <h4>Note‑Taking App</h4>
+              <div class="stack">HTML • CSS • JavaScript • localStorage</div>
+              <p class="muted">Browser‑based notes with CRUD, search, and modals. Works offline using localStorage.</p>
+            </div>
+            <div class="links">
+              <a href="https://himan1807.github.io/note-taking-app/" target="_blank" rel="noreferrer">Live</a>
+              <a href="https://github.com/Himan1807/note-taking-app" target="_blank" rel="noreferrer">Repo</a>
+            </div>
+          </article>
+
+          <article class="project fade">
+            <div>
+              <h4>Recipe Finder</h4>
+              <div class="stack">HTML • CSS • JavaScript • TheMealDB API</div>
+              <p class="muted">Find recipes by single ingredient with clean UI and responsive cards.</p>
+            </div>
+            <div class="links">
+              <a href="https://himan1807.github.io/recipe-finder/" target="_blank" rel="noreferrer">Live</a>
+              <a href="https://github.com/Himan1807/recipe-finder" target="_blank" rel="noreferrer">Repo</a>
+            </div>
+          </article>
+
+          <article class="project fade">
+            <div>
+              <h4>OShell — Optimized Unix Shell</h4>
+              <div class="stack">C • POSIX • Linux (WSL2) • Multithreading • Process Management</div>
+              <p class="muted">Custom Unix shell that intelligently bypasses process creation for math expressions and uses exponentiation‑by‑squaring — achieving major speedups vs Bash/PowerShell.</p>
+            </div>
+            <div class="links">
+              <a href="https://github.com/Himan1807/os-project" target="_blank" rel="noreferrer">Repo</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <div class="container">
+        <div class="section-head">
+          <h3>Skills</h3>
+          <span class="muted">What I use</span>
+        </div>
+        <div class="panel fade">
+          <div class="chips">
+            <span class="chip">HTML</span>
+            <span class="chip">CSS</span>
+            <span class="chip">JavaScript</span>
+            <span class="chip">Java</span>
+            <span class="chip">Git</span>
+            <span class="chip">Linux</span>
+            <span class="chip">MySQL</span>
+            <span class="chip">APIs</span>
+            <span class="chip">Web Development</span>
+            <span class="chip">Cybersecurity</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Achievements / Experience -->
+    <section id="achievements">
+      <div class="container">
+        <div class="section-head">
+          <h3>Achievements & Experience</h3>
+          <span class="muted">Highlights</span>
+        </div>
+        <div class="grid">
+          <div class="panel fade">
+            <h4 style="margin-top:0">Dean’s List — Spring 2024</h4>
+            <p class="muted">Top 10% of program with GPA 8.85; no failing grades or disciplinary actions.</p>
+          </div>
+          <div class="panel fade">
+            <h4 style="margin-top:0">Summer Admission Coordinator (2024–2025)</h4>
+            <p class="muted">Built communication, time‑management, and event coordination skills working with prospective students, faculty, and staff.</p>
+          </div>
+          <div class="panel fade">
+            <h4 style="margin-top:0">Convocation Volunteer</h4>
+            <p class="muted">Supported planning, logistics, and stage operations to ensure a smooth ceremony experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container">
+        <div class="section-head">
+          <h3>Contact</h3>
+          <span class="muted">Let’s talk</span>
+        </div>
+        <div class="grid" style="grid-template-columns:1.2fr .8fr;gap:16px">
+          <div class="panel fade">
+            <form action="mailto:hs271@snu.edu.in" method="post" enctype="text/plain">
+              <label class="sr" for="name">Name</label>
+              <input id="name" name="Name" type="text" placeholder="Your name" required>
+              <label class="sr" for="email">Email</label>
+              <input id="email" name="Email" type="email" placeholder="Your email" required>
+              <label class="sr" for="msg">Message</label>
+              <textarea id="msg" name="Message" placeholder="How can I help?" required></textarea>
+              <button class="btn primary" type="submit">Send Message</button>
+            </form>
+          </div>
+          <div class="panel fade">
+            <h4 style="margin-top:0">Direct</h4>
+            <p class="muted" style="margin:0 0 8px">Email: <a href="mailto:hs271@snu.edu.in">hs271@snu.edu.in</a><br>Phone: <a href="tel:+919310691192">+91 93106 91192</a></p>
+            <div class="cta">
+              <a class="btn" href="https://github.com/Himan1807" target="_blank" rel="noreferrer">GitHub</a>
+              <!-- Add LinkedIn when available -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="muted">© <span id="y"></span> Himanshu Singh • Built with vanilla HTML/CSS/JS • <a class="muted" href="#home">Back to top</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Simple fade-in on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show') })
+    }, {threshold:0.1});
+    document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+
+    // Respect reduced motion users
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mq.matches) { document.documentElement.style.scrollBehavior = 'auto'; }
+  </script>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Himanshu Singh",
+    "url": "https://himan1807.github.io/",
+    "email": "mailto:hs271@snu.edu.in",
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "Shiv Nadar University"
+    },
+    "sameAs": [
+      "https://github.com/Himan1807"
+    ],
+    "knowsAbout": ["Web development","JavaScript","Java","Linux","APIs","Cybersecurity"]
+  }
+  </script>
+</body>
+</html>
